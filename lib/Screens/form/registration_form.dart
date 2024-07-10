@@ -130,6 +130,9 @@ class RegistrationForm extends StatelessWidget {
                       toast(msg: "There is some issues");
                     }
                   }
+                  else{
+                    toast(msg: "Fill all the required feilds");
+                  }
                 }),
           ],
         ),
