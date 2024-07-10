@@ -7,17 +7,17 @@ import 'package:onboarding_app/utility/constant.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../form/registration_form.dart';
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({super.key});
+class QRScanner extends StatefulWidget {
+  const QRScanner({super.key});
 
   @override
-  State<QRViewExample> createState() => _QRViewExampleState();
+  State<QRScanner> createState() => _QRScannerState();
 }
 
 
 
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRScannerState extends State<QRScanner> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
@@ -64,6 +64,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
      con.setQrData(scanData.code.toString());
+
      Get.off(RegistrationForm(code: scanData.code.toString(),));
     });
   }
