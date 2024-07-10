@@ -50,10 +50,11 @@ class TitledTextFeiled extends StatelessWidget {
             keyboardType: keyBoardType,
             readOnly: isReadOnly,
             style: GoogleFonts.poppins(),
-
-
+            
 
             decoration: InputDecoration(
+              filled: isReadOnly?true:false, // Enables background color
+              fillColor: Colors.grey.withOpacity(0.5),
               prefixIcon: isReadOnly?Icon(Icons.lock_outline):null,
 
                 counterText: "",

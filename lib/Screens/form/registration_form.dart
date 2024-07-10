@@ -107,12 +107,13 @@ class RegistrationForm extends StatelessWidget {
                 title: "Submit",
                 onPressed: () async {
                   Print.p(con.data.value.toString());
-                  if (con.data.value["Business Name"] != "" &&
-                      con.data.value["First Name"] != "" &&
-                      con.data.value["Last Name"] != "" &&
-                      con.data.value["Phone Number"] != "" &&
-                      con.data.value["Email ID"] != "" &&
-                      con.data.value["Review Page URL"] != "") {
+                  if (con.data.value["Business Name"] != null &&
+                      con.data.value["First Name"] != null &&
+                      con.data.value["Last Name"] != null &&
+                      con.data.value["Phone Number"] != null &&
+                      con.data.value["Email ID"] != null &&
+                      con.data.value["Review Page URL"] != null) {
+                    Print.p("inif");
                     var x = con.data.value;
                     try {
                       var res = await Api.registerCompany(
@@ -125,7 +126,7 @@ class RegistrationForm extends StatelessWidget {
                           email: x["Email ID"]);
 
                       toast(msg: res["message"].toString());
-                      res["message"]=="QR code data saved successfully"?Get.back():null;
+                      res["message"]=="QR code data updated successfully"?Get.back():null;
                     } catch (x) {
                       toast(msg: "There is some issues");
                     }

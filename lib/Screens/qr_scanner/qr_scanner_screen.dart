@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:onboarding_app/Screens/qr_scanner/controller/controller.dart';
 import 'package:onboarding_app/utility/constant.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -38,25 +39,22 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        ()=> Column(
+      extendBody: true,
+      // backgroundColor: ConstColor.primery,
+      appBar: standeredAppBar(title: "Scan QR Code",enableBackButton: true),
+      body:Stack(
           children: <Widget>[
-            Expanded(
-              flex: 5,
-              child: QRView(
-                key: qrKey,
-                onQRViewCreated: _onQRViewCreated,
-              ),
+
+            QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
             ),
-            Expanded(
-              flex: 1,
-              child:  Center(
-                  child: Text("${con.qrData.value}"),
-                ),
-            )
+            Center(child: Image(image: AssetImage("asset/qr.png"),)),
+
+
           ],
         ),
-      ),
+
     );
   }
 
@@ -64,6 +62,7 @@ class _QRScannerState extends State<QRScanner> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
      con.setQrData(scanData.code.toString());
+
 
      Get.off(RegistrationForm(code: scanData.code.toString(),));
     });

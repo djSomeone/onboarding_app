@@ -70,3 +70,14 @@ Widget standardButton({
     ),
   );
 }
+AppBar standeredAppBar({required String title,bool enableBackButton=false})
+{
+  return  AppBar(leading:enableBackButton? IconButton(icon:Icon(Icons.arrow_back,color: Colors.white,),
+    onPressed: (){Get.back();},
+    color: Colors.white,):Text(""),
+    title:Text(title,
+      style: TextStyle(fontSize: 16,color: Colors.white),),
+    centerTitle: true,backgroundColor: ConstColor.primery,
+
+  );
+}
