@@ -7,6 +7,7 @@ import '../../form/registration_form.dart';
 class QrDataController extends GetxController{
   RxString qrData="Scan a code".obs;
   RxBool isRegistered = false.obs;
+  RxBool notScanStarCode=false.obs;
   void setQrData(String newQrData){
     if(newQrData!=qrData.value)
       {
@@ -14,19 +15,23 @@ class QrDataController extends GetxController{
       }
   }
   void setRegistered() async {
-    try {
-      var res = await Api.checkRegistred(id: qrData.value);
-      if (res["isRegistered"] == false) {
-        Get.back();
-        Get.off(RegistrationForm(
-          code: qrData.value,
-        ));
-        // isLoading.value=false;
-      } else {
-        isRegistered.value = true;
+    if(qrData.value.length==24){
+      try {
+        var res = await Api.checkRegistred(id: qrData.value);
+        if (res["isRegistered"] == false) {
+          Get.back();
+          Get.off(RegistrationForm(
+            code: qrData.value,
+          ));
+          // isLoading.value=false;
+        } else {
+          isRegistered.value = true;
+        }
+      } catch (x) {
+        Print.p("Some thing went wrong");
       }
-    } catch (x) {
-      Print.p("Some thing went wrong");
+    }else{
+      notScanStarCode.value=true;
     }
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onboarding_app/main.dart';
 import 'package:onboarding_app/utility/constant.dart';
 
 import '../../api/api.dart';
+import '../../modules/popUp_model/successfull_popup.dart';
 import 'controller/controller.dart';
 import 'module/textFeild.dart';
 
@@ -124,7 +126,14 @@ class RegistrationForm extends StatelessWidget {
                           email: x["Email ID"]);
 
                       toast(msg: res["message"].toString());
-                      res["message"]=="QR code data updated successfully"?Get.back():null;
+
+                      res["message"]=="QR code data updated successfully"? showDialog(context: context,
+                          barrierDismissible: false,
+                          builder: (context){
+                            return SuccessPopup(onButtonPressed: (){
+                              Get.offAll(MyHomePage());
+                            });
+                          }):null;
                     } catch (x) {
                       toast(msg: "There is some issues");
                     }

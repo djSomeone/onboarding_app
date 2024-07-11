@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+// import 'package:onboarding_app/popUp_model/successfull_popup.dart';
+import 'package:onboarding_app/utility/constant.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'Screens/qr_scanner/qr_scanner_screen.dart';
 import 'api/api.dart';
+import 'modules/popUp_model/invaildQrPop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,17 +62,33 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color(0xFF004AAD),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("Register",style: TextStyle(color: Colors.white),),
+        title: Text("Register QR Cde",style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(200, 50),
+            backgroundColor: ConstColor.primery, // Set your desired color here
+            // Set text color (optional)
+          ),
           onPressed: () {
+            toast(msg: "clicked");
+            showDialog(context: context, builder: (context){
+              return InvalidQrCodePopup(onPressed: (){});
+            });
             Get.to(QRScanner());
           },
-          child: Text("Scan to register"),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.qr_code_scanner,color: Colors.white),
+              Text("Scan to register",style: GoogleFonts.poppins(color: Colors.white),),
+            ],
+          ),
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

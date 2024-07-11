@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onboarding_app/Screens/qr_scanner/controller/controller.dart';
+import 'package:onboarding_app/modules/popUp_model/invaildQrPop.dart';
+import 'package:onboarding_app/modules/popUp_model/successfull_popup.dart';
 import 'package:onboarding_app/utility/constant.dart';
-import 'package:onboarding_app/waitingPopUp/waitingPopUp.dart';
+// import 'package:onboarding_app/waitingPopUp/waitingPopUp.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../main.dart';
+import '../../modules/popUp_model/waitingPopUp.dart';
 import '../form/registration_form.dart';
 
 class QRScanner extends StatefulWidget {
@@ -71,18 +74,16 @@ class _QRScannerState extends State<QRScanner> {
           builder: (context) {
 
             return Obx(
-              ()=> con.isRegistered.value?AlertDialog(title: Text("Already Reagistered"),actions: [
+              ()=>
+              con.isRegistered.value?AlertDialog(title: Text("Already Reagistered"),
+                actions: [
                ElevatedButton(
                    style: ElevatedButton.styleFrom(
                      backgroundColor: ConstColor.primery, // Set your desired color here
                      // Set text color (optional)
                    ),
                    onPressed: (){
-                 // toast(msg: "on Tap");
-                 //     con.isRegistered.value=false;
                  controller.resumeCamera();
-
-
                  Navigator.pop(context);
                  Navigator.pop(context);
                }, child: Text("Ok",style: TextStyle(color: Colors.white),),
