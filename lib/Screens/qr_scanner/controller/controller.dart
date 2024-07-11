@@ -17,6 +17,7 @@ class QrDataController extends GetxController{
     try {
       var res = await Api.checkRegistred(id: qrData.value);
       if (res["isRegistered"] == false) {
+        Get.back();
         Get.off(RegistrationForm(
           code: qrData.value,
         ));

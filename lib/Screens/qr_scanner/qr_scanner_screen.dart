@@ -8,6 +8,7 @@ import 'package:onboarding_app/utility/constant.dart';
 import 'package:onboarding_app/waitingPopUp/waitingPopUp.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../main.dart';
 import '../form/registration_form.dart';
 
 class QRScanner extends StatefulWidget {
@@ -78,10 +79,12 @@ class _QRScannerState extends State<QRScanner> {
                    ),
                    onPressed: (){
                  // toast(msg: "on Tap");
-                     con.isRegistered.value=false;
+                 //     con.isRegistered.value=false;
                  controller.resumeCamera();
 
-                 Get.back();
+
+                 Navigator.pop(context);
+                 Navigator.pop(context);
                }, child: Text("Ok",style: TextStyle(color: Colors.white),),
                )],)
               :WaitingPopup(),
