@@ -39,6 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     Api.dio.interceptors.add(PrettyDioLogger());
+    Api.dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90));
   }
   @override
   Widget build(BuildContext context) {

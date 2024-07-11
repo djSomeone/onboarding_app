@@ -6,6 +6,7 @@ class Api {
   static var endPoint = "https://ambulance-booking-backend.vercel.app/";
 
   static var registerEndPoint = "user/update-qr-data";
+  static var checkRegister = "user/check-qr-data-by-id";
 
   static Future<Map<String, dynamic>> registerCompany({
     required String id,
@@ -33,4 +34,13 @@ class Api {
     var res = await dio.post(finalPath, data: data);
     return ResponseStructure.toResponseStructure(res);
   }
+
+  static Future<Map<String, dynamic>> checkRegistred({required String id})
+  async
+  {
+    var finalPath = "$endPoint$checkRegister?id=${id}";
+    var res = await dio.get(finalPath);
+    return ResponseStructure.toResponseStructure(res);
+  }
+
 }

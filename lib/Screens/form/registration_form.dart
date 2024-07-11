@@ -10,9 +10,7 @@ import 'module/textFeild.dart';
 class RegistrationForm extends StatelessWidget {
   String code = "";
   RegistrationForm({required this.code}) {
-    Print.p("RegistrationForm");
-    code = code.split("/")[3].toString();
-    Print.p(code.toString());
+
   }
 
   var bsName = TextEditingController();

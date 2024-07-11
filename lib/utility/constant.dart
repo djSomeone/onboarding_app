@@ -81,3 +81,11 @@ AppBar standeredAppBar({required String title,bool enableBackButton=false})
 
   );
 }
+
+String getIdOnly(String path)
+{
+  Print.p("RegistrationForm");
+  String id = path.split("/")[3].toString();
+  Print.p(id.toString());
+  return id;
+}
