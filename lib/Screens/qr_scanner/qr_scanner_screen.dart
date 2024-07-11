@@ -78,7 +78,9 @@ class _QRScannerState extends State<QRScanner> {
                    ),
                    onPressed: (){
                  // toast(msg: "on Tap");
+                     con.isRegistered.value=false;
                  controller.resumeCamera();
+
                  Get.back();
                }, child: Text("Ok",style: TextStyle(color: Colors.white),),
                )],)
