@@ -74,22 +74,38 @@ class _QRScannerState extends State<QRScanner> {
           builder: (context) {
 
             return Obx(
-              ()=>
-              con.isRegistered.value?AlertDialog(title: Text("Already Reagistered"),
-                actions: [
-               ElevatedButton(
-                   style: ElevatedButton.styleFrom(
-                     backgroundColor: ConstColor.primery, // Set your desired color here
-                     // Set text color (optional)
-                   ),
-                   onPressed: (){
-                 controller.resumeCamera();
-                 Navigator.pop(context);
-                 Navigator.pop(context);
-               }, child: Text("Ok",style: TextStyle(color: Colors.white),),
-               )],)
-              :WaitingPopup(),
-            );
+                    (){
+              return con.notScanStarCode.value
+                  ? InvalidQrCodePopup(
+                onPressed: () {
+                  controller.resumeCamera();
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              ):(con.isRegistered.value
+                      ? AlertDialog(
+                          title: Text("Already Reagistered"),
+                          actions: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: ConstColor
+                                    .primery, // Set your desired color here
+                                // Set text color (optional)
+                              ),
+                              onPressed: () {
+                                controller.resumeCamera();
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                "Ok",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        )
+                      : WaitingPopup());
+            });
           });
 
       

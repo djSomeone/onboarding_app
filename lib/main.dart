@@ -76,9 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onPressed: () {
             toast(msg: "clicked");
-            showDialog(context: context, builder: (context){
-              return InvalidQrCodePopup(onPressed: (){});
-            });
             Get.to(QRScanner());
           },
           child: Row(
