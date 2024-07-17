@@ -31,10 +31,7 @@ class RegistrationForm extends StatelessWidget {
     var uicon = TextEditingController(text: code);
     this.context=context;
     con.addData("Unique ID", code);
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (bool x) => _onWillPop(context),
-      child: SafeArea(
+    return SafeArea(
         child: Scaffold(
             body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -116,10 +113,10 @@ class RegistrationForm extends StatelessWidget {
             ],
           ),
         )),
-      ),
-    );
+      );
+
   }
-  void onSubmit(bool c) async {
+  void onSubmit() async {
     Print.p(con.data.value.toString());
     if (con.data.value["Business Name"] != null &&
         con.data.value["First Name"] != null &&
