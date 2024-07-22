@@ -99,10 +99,10 @@ class RegistrationForm extends StatelessWidget {
                     ),
                     // uwhef
                     TitledTextFeiled(
-                      title: "Review Page URL",
-                      placeHolder: "Enter Review Page URL",
+                      title: "PlaceID",
+                      placeHolder: "Enter PlaceID",
                       controller: pageUrl,
-                      keyword: "Review Page URL",
+                      keyword: "PlaceID",
                       keyBoardType: TextInputType.url,
                     ),
                   ],
@@ -124,13 +124,13 @@ class RegistrationForm extends StatelessWidget {
         con.data.value["Last Name"] != null &&
         con.data.value["Phone Number"] != null &&
         con.data.value["Email ID"] != null &&
-        con.data.value["Review Page URL"] != null) {
+        con.data.value["PlaceID"] != null) {
       Print.p("inif");
       var x = con.data.value;
       try {
         var res = await Api.registerCompany(
             id: code,
-            pageUrl: x["Review Page URL"],
+            placeId: x["PlaceID"],
             businessName: x["Business Name"],
             firstName: x["First Name"],
             lastName: x["Last Name"],

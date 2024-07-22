@@ -10,7 +10,7 @@ class Api {
 
   static Future<Map<String, dynamic>> registerCompany({
     required String id,
-    required String pageUrl,
+    required String placeId,
     required String businessName,
     required String firstName,
     required String lastName,
@@ -23,7 +23,7 @@ class Api {
     var data = {
       "firstName": firstName,
       "lastName": lastName,
-      "pageUrl":pageUrl,
+      "placeId":placeId,
       "businessName":businessName,
       "contactNumber":contactNumber,
       "email":email
