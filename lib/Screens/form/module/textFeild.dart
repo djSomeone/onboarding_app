@@ -21,7 +21,7 @@ class TitledTextFeiled extends StatelessWidget {
         this.keyBoardType = TextInputType.text,
         required this.controller,
         this.maxline = 1,
-        this.maxlength = 50,
+        this.maxlength = 10000,
         required this.keyword,
       this.isReadOnly=false
       });
