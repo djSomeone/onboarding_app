@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onboarding_app/Screens/form/registration_form.dart';
 // import 'package:onboarding_app/popUp_model/successfull_popup.dart';
 import 'package:onboarding_app/utility/constant.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -77,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             toast(msg: "clicked");
             Get.to(QRScanner());
+            // Get.to(RegistrationForm(code: "6691003c4fe85a4e2b93dad3"));
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:onboarding_app/Screens/form/controller/controller.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:onboarding_app/utility/constant.dart';
 
 class TitledTextFeiled extends StatelessWidget {
@@ -13,7 +13,8 @@ class TitledTextFeiled extends StatelessWidget {
   TextEditingController controller;
   var maxline;
   var maxlength;
-  var keyword;
+  var isImage;
+
   bool isReadOnly;
   TitledTextFeiled(
       {required this.title,
@@ -22,11 +23,11 @@ class TitledTextFeiled extends StatelessWidget {
         required this.controller,
         this.maxline = 1,
         this.maxlength = 10000,
-        required this.keyword,
+        this.isImage=false,
       this.isReadOnly=false
       });
 
-  var formController = Get.find<FormController>();
+  // var formController = Get.find<FormController>();
   var _debounce;
   @override
   Widget build(BuildContext context) {
@@ -43,19 +44,30 @@ class TitledTextFeiled extends StatelessWidget {
             ),
           ),
           TextFormField(
-            onChanged: _handleTextChanged,
+            // onChanged: _handleTextChanged,
             controller: controller,
             maxLines: maxline,
             maxLength: maxlength,
             keyboardType: keyBoardType,
             readOnly: isReadOnly,
             style: GoogleFonts.poppins(),
+            onTap: isImage?()async{
+             XFile? x=await ImagePicker().pickImage(source: ImageSource.gallery);
+             if(x==null){
+               toast(msg: "file not selected yet");
+             }else{
+               toast(msg: "seletcted");
+               Print.p(x.name.toString());
+               controller.text=x.path.toString();
+             }
+
+            }:null,
             
 
             decoration: InputDecoration(
               filled: isReadOnly?true:false, // Enables background color
-              fillColor: Colors.grey.withOpacity(0.5),
-              prefixIcon: isReadOnly?Icon(Icons.lock_outline):null,
+              fillColor: isReadOnly?isImage?Colors.transparent:Colors.grey.withOpacity(0.4):null,
+              prefixIcon: isReadOnly?isImage?Icon(Icons.upload):Icon(Icons.lock_outline):null,
 
                 counterText: "",
                 hintText: placeHolder,
@@ -76,11 +88,5 @@ class TitledTextFeiled extends StatelessWidget {
     );
   }
 
-  void _handleTextChanged(String x) {
-    _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      // Perform your delayed action here with the current text
-      formController.addData(keyword,x.toString());
-    });
-  }
+
 }

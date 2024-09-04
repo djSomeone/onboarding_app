@@ -10,6 +10,7 @@ class Api {
 
   static Future<Map<String, dynamic>> registerCompany({
     required String id,
+    required String img,
     required String placeId,
     required String businessName,
     required String firstName,
@@ -18,17 +19,19 @@ class Api {
     required String email,
 
 
+
   }) async{
 
-    var data = {
+    var data = FormData.fromMap({
       "firstName": firstName,
       "lastName": lastName,
       "placeId":placeId,
       "businessName":businessName,
       "contactNumber":contactNumber,
-      "email":email
+      "email":email,
+      "image":await MultipartFile.fromFile(img)
 
-    };
+    });
 
     var finalPath = "$endPoint$registerEndPoint?id=${id}";
     var res = await dio.post(finalPath, data: data);

@@ -6,7 +6,6 @@ import 'package:onboarding_app/utility/constant.dart';
 
 import '../../api/api.dart';
 import '../../modules/popUp_model/successfull_popup.dart';
-import 'controller/controller.dart';
 import 'module/textFeild.dart';
 
 class RegistrationForm extends StatelessWidget {
@@ -21,8 +20,9 @@ class RegistrationForm extends StatelessWidget {
   var lastName = TextEditingController();
   var phNumber = TextEditingController();
   var email = TextEditingController();
-  var pageUrl = TextEditingController();
-  var con = Get.put(FormController());
+  var placeId = TextEditingController();
+  var logo = TextEditingController();
+
 
 
 
@@ -30,7 +30,7 @@ class RegistrationForm extends StatelessWidget {
   Widget build(BuildContext context) {
     var uicon = TextEditingController(text: code);
     this.context=context;
-    con.addData("Unique ID", code);
+
     return SafeArea(
         child: Scaffold(
             body: Padding(
@@ -62,47 +62,49 @@ class RegistrationForm extends StatelessWidget {
                       title: "Unique ID",
                       placeHolder: "placeHolder",
                       controller: uicon,
-                      keyword: "Unique ID",
                       isReadOnly: true,
                     ),
                     TitledTextFeiled(
                         title: "Business Name",
                         placeHolder: "Enter Business Name",
-                        controller: bsName,
-                        keyword: "Business Name"),
+                        controller: bsName,),
                     TitledTextFeiled(
                       title: "First Name",
                       placeHolder: "Enter First Name",
                       controller: firstName,
-                      keyword: "First Name",
                     ),
                     TitledTextFeiled(
                       title: "Last Name",
                       placeHolder: "Enter Last Name",
                       controller: lastName,
-                      keyword: "Last Name",
                     ),
                     TitledTextFeiled(
                       title: "Phone Number",
                       placeHolder: "Enter Phone Number",
                       controller: phNumber,
-                      keyword: "Phone Number",
                       keyBoardType: TextInputType.number,
                       maxlength: 10,
                     ),
                     TitledTextFeiled(
-                      title: "Email ID (optional)",
+                      title: "Email ID",
                       placeHolder: "Enter Email ID",
                       controller: email,
-                      keyword: "Email ID",
                       keyBoardType: TextInputType.emailAddress,
                     ),
                     // uwhef
                     TitledTextFeiled(
                       title: "PlaceID",
                       placeHolder: "Enter PlaceID",
-                      controller: pageUrl,
-                      keyword: "PlaceID",
+                      controller: placeId,
+
+                      keyBoardType: TextInputType.url,
+                    ),
+                    TitledTextFeiled(
+                      title: "Business Logo",
+                      placeHolder: "browse and upload",
+                      controller: logo,
+                      isReadOnly: true,
+                      isImage: true,
                       keyBoardType: TextInputType.url,
                     ),
                   ],
@@ -118,24 +120,27 @@ class RegistrationForm extends StatelessWidget {
 
   }
   void onSubmit() async {
-    Print.p(con.data.value.toString());
-    if (con.data.value["Business Name"] != null &&
-        con.data.value["First Name"] != null &&
-        con.data.value["Last Name"] != null &&
-        con.data.value["Phone Number"] != null &&
-        con.data.value["Email ID"] != null &&
-        con.data.value["PlaceID"] != null) {
-      Print.p("inif");
-      var x = con.data.value;
+    // Print.p("palce id value->${placeId.text!=""}");
+    if ((bsName.text!= '' &&
+        firstName.text!= '') && (lastName.text != '' &&
+        phNumber.text != '' &&
+        email.text != '' &&
+        placeId.text!= ''&&
+    logo.text!=""
+    )) {
+      // Print.p("inif");
+    toast(msg:"we are in the if statement");
       try {
         var res = await Api.registerCompany(
             id: code,
-            placeId: x["PlaceID"],
-            businessName: x["Business Name"],
-            firstName: x["First Name"],
-            lastName: x["Last Name"],
-            contactNumber: x["Phone Number"],
-            email: x["Email ID"]);
+            placeId: placeId.text,
+            businessName:bsName.text,
+            firstName: firstName.text,
+            lastName: lastName.text,
+            contactNumber: phNumber.text,
+            email: email.text,
+          img: logo.text
+        );
 
         toast(msg: res["message"].toString());
 
@@ -154,29 +159,6 @@ class RegistrationForm extends StatelessWidget {
       toast(msg: "Fill all the required feilds");
     }
   }
-  Future<bool> _onWillPop(BuildContext context) async {
-    // Show confirmation dialog before navigating back
-    final shouldPop = await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to exit this screen?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text('No'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, true);
-              Navigator.pop(context, true);
-            },
-            child: Text('Yes'),
-          ),
-        ],
-      ),
-    );
-    return shouldPop ?? false; // return false by default
-  }
+
 }
 
